@@ -70,11 +70,13 @@ class Gemini implements GeminiContract
 
         $image = base64_encode($contents);
 
-        return $this->generateTextUsingImage($prompt, $imageType, $image);
+        return $this->generateTextUsingImage($imageType, $image, $prompt);
     }
 
     /**
      * Generates a text based on the given image.
+     * The image data must be a base64 encoded string,
+     *
      * You can also provide a prompt.
      *
      * The image type must be one of the types below
