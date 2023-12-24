@@ -27,6 +27,7 @@ _This library is not developed or endorsed by Google._
     - [Chat Session (Multi-Turn Conversations)](#chat-session-multi-turn-conversations)
     - [Tokens counting](#tokens-counting)
     - [Listing models](#listing-models)
+- [Credits](#credits)
 
 ## Installation
 
@@ -155,3 +156,9 @@ print_r(Gemini::listModels());
 //    )
 //]
 ```
+
+## Credits
+
+This project was inspired by the great work of [OpenAI PHP for Laravel](https://github.com/openai-php/laravel) and [OpenAI PHP client](https://github.com/openai-php/client).
+
+We gratefully acknowledge the contributions of [OpenAI PHP](https://github.com/openai-php) and its team.
