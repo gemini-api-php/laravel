@@ -1,0 +1,47 @@
+name: Tests
+
+on: ['push']
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        php-version: [8.1, 8.2, 8.3]
+        laravel: [11.*, 10.*, 9.*]
+        dependency-version: [prefer-lowest, prefer-stable]
+        exclude:
+          - php-version: 8.1
+            laravel: 11.*
+
+    name: Tests P${{ matrix.php-version }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache/files
+          key: php-${{ matrix.php-version }}-laravel-${{ matrix.laravel }}-${{ matrix.dependency-version }}-composer-${{ hashFiles('composer.json') }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: none
+
+      - name: Require Laravel Version
+        run: >
+          composer require --dev
+          "laravel/framework:${{ matrix.laravel }}"
+          --no-interaction --no-update
+
+      - name: Install Composer dependencies
+        run: composer update --${{ matrix.dependency-version }} --no-interaction --prefer-dist
+
+      - name: Unit Tests
+        run: composer test:unit

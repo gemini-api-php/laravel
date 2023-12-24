@@ -1,0 +1,78 @@
+{
+  "name": "gemini-api-php/laravel",
+  "description": "Gemini API client for Laravel",
+  "keywords": [
+    "laravel",
+    "php",
+    "client",
+    "sdk",
+    "api",
+    "google",
+    "gemini",
+    "gemini pro",
+    "gemini pro vision",
+    "ai"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Erdem Köse",
+      "email": "erdemkose@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "gemini-api-php/client": "^1.1",
+    "illuminate/support": "^9.0 || ^10.0 || ^11.0",
+    "psr/container": "^1.0 || ^2.0",
+    "psr/http-client": "^1.0"
+  },
+  "require-dev": {
+    "guzzlehttp/guzzle": "^7.8.1",
+    "guzzlehttp/psr7": "^2.0",
+    "laravel/framework": "^9.0 || ^10.0 || ^11.0",
+    "laravel/pint": "^1.13.6",
+    "pestphp/pest": "^2.27.0",
+    "pestphp/pest-plugin-arch": "^2.4.1",
+    "phpstan/phpstan": "^1.10.47",
+    "symfony/var-dumper": "^6.4.0|^7.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "GeminiAPI\\Laravel\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "GeminiAPI\\Laravel\\Tests\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "pestphp/pest-plugin": true
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "GeminiAPI\\Laravel\\ServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "lint": "pint -v",
+    "test:lint": "pint --test -v",
+    "test:types": "phpstan analyse --ansi",
+    "test:unit": "pest --colors=always",
+    "test": [
+      "@test:lint",
+      "@test:types",
+      "@test:unit"
+    ]
+  }
+}
