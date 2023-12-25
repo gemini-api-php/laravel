@@ -7,13 +7,25 @@ namespace GeminiAPI\Laravel;
 use GeminiAPI\ClientInterface;
 use GeminiAPI\Enums\MimeType;
 use GeminiAPI\Enums\ModelName;
+use GeminiAPI\Enums\Role;
 use GeminiAPI\Laravel\Contracts\GeminiContract;
 use GeminiAPI\Laravel\Exceptions\InvalidArgumentException;
 use GeminiAPI\Laravel\Exceptions\InvalidMimeType;
+use GeminiAPI\Resources\Content;
 use GeminiAPI\Resources\Model;
 use GeminiAPI\Resources\Parts\ImagePart;
 use GeminiAPI\Resources\Parts\TextPart;
 use Psr\Http\Client\ClientExceptionInterface;
+
+use function array_map;
+use function base64_encode;
+use function file_get_contents;
+use function in_array;
+use function is_file;
+use function is_null;
+use function is_readable;
+use function is_string;
+use function sprintf;
 
 class Gemini implements GeminiContract
 {
@@ -114,11 +126,37 @@ class Gemini implements GeminiContract
         return $response->text();
     }
 
-    public function startChat(): ChatSession
+    /**
+     * @param array<int, array{
+     *   message: string,
+     *   role: string,
+     * }> $history
+     *
+     * @throws InvalidArgumentException
+     */
+    public function startChat(array $history = []): ChatSession
     {
         $chatSession = $this->client
             ->generativeModel(ModelName::GeminiPro)
             ->startChat();
+
+        if (! empty($history)) {
+            $contents = array_map(
+                static function (array $message): Content {
+                    if (empty($message['message']) || empty($message['role'])) {
+                        throw new InvalidArgumentException('Invalid message in the chat history');
+                    }
+
+                    if (! is_string($message['message']) || ! in_array($message['role'], ['user', 'model'], true)) {
+                        throw new InvalidArgumentException('Invalid message in the chat history');
+                    }
+
+                    return Content::text($message['message'], Role::from($message['role']));
+                },
+                $history,
+            );
+            $chatSession = $chatSession->withHistory($contents);
+        }
 
         return new ChatSession($chatSession);
     }
