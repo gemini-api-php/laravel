@@ -124,6 +124,32 @@ print $chat->sendMessage('in Go');
 // This code will print "Hello World!" to the standard output.
 ```
 
+### Chat Session with History
+
+```php
+use GeminiAPI\Laravel\Facades\Gemini;
+
+$history = [
+    [
+        'message' => 'Hello World in PHP',
+        'role' => 'user',
+    ],
+    [
+        'message' => <<<MESSAGE
+            echo "Hello World!";
+
+            This code will print "Hello World!" to the standard output.
+            MESSAGE,
+        'role' => 'model',
+    ],
+];
+$chat = Gemini::startChat($history);
+
+print $chat->sendMessage('in Go');
+// fmt.Println("Hello World!")
+// This code will print "Hello World!" to the standard output.
+```
+
 ### Tokens counting
 
 ```php
