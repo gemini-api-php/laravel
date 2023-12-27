@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static int countTokens(string $prompt)
+ * @method static float[] embedText(string $prompt)
  * @method static string generateText(string $prompt)
  * @method static string generateTextUsingImage(string $imageType, string $image, string $prompt = '')
  * @method static string generateTextUsingImageFile(string $imageType, string $imagePath, string $prompt = '')

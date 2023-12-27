@@ -25,6 +25,7 @@ _This library is not developed or endorsed by Google._
     - [Text Generation using Image File](#text-generation-using-image-file)
     - [Text Generation using Image Data](#text-generation-using-image-data)
     - [Chat Session (Multi-Turn Conversations)](#chat-session-multi-turn-conversations)
+    - [Text Embeddings](#text-embeddings)
     - [Tokens counting](#tokens-counting)
     - [Listing models](#listing-models)
 - [Credits](#credits)
@@ -148,6 +149,19 @@ $chat = Gemini::startChat($history);
 print $chat->sendMessage('in Go');
 // fmt.Println("Hello World!")
 // This code will print "Hello World!" to the standard output.
+```
+
+### Text Embeddings
+
+```php
+use GeminiAPI\Laravel\Facades\Gemini;
+
+print_r(Gemini::embedText('PHP in less than 100 chars'));
+// [
+//    [0] => 0.041395925
+//    [1] => -0.017692696
+//    ...
+// ]
 ```
 
 ### Tokens counting

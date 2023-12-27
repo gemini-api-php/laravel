@@ -35,6 +35,22 @@ class Gemini implements GeminiContract
     }
 
     /**
+     * @return float[]
+     *
+     * @throws ClientExceptionInterface
+     */
+    public function embedText(string $prompt, ?string $title = null): array
+    {
+        $model = $this->client->embeddingModel(ModelName::Embedding);
+
+        $response = $title
+            ? $model->embedContentWithTitle($title, new TextPart($prompt))
+            : $model->embedContent(new TextPart($prompt));
+
+        return $response->embedding->values;
+    }
+
+    /**
      * @throws ClientExceptionInterface
      */
     public function generateText(string $prompt): string
