@@ -25,6 +25,7 @@ _This library is not developed or endorsed by Google._
     - [Text Generation using Image File](#text-generation-using-image-file)
     - [Text Generation using Image Data](#text-generation-using-image-data)
     - [Chat Session (Multi-Turn Conversations)](#chat-session-multi-turn-conversations)
+    - [Chat Session with History](#chat-session-with-history)
     - [Text Embeddings](#text-embeddings)
     - [Tokens counting](#tokens-counting)
     - [Listing models](#listing-models)
