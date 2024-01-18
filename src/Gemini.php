@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GeminiAPI\Laravel;
 
+use CurlHandle;
 use GeminiAPI\ClientInterface;
 use GeminiAPI\Enums\MimeType;
 use GeminiAPI\Enums\ModelName;
@@ -15,6 +16,7 @@ use GeminiAPI\Resources\Content;
 use GeminiAPI\Resources\Model;
 use GeminiAPI\Resources\Parts\ImagePart;
 use GeminiAPI\Resources\Parts\TextPart;
+use GeminiAPI\Responses\GenerateContentResponse;
 use Psr\Http\Client\ClientExceptionInterface;
 
 use function array_map;
@@ -62,6 +64,23 @@ class Gemini implements GeminiContract
             );
 
         return $response->text();
+    }
+
+    /**
+     * @param  callable(string): void  $callback
+     */
+    public function generateTextStream(
+        string $prompt,
+        callable $callback,
+        ?CurlHandle $ch = null,
+    ): void {
+        $this->client
+            ->generativeModel(ModelName::GeminiPro)
+            ->generateContentStream(
+                fn (GenerateContentResponse $response) => $callback($response->text()),
+                [new TextPart($prompt)],
+                $ch,
+            );
     }
 
     /**
