@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GeminiAPI\Laravel\Facades;
 
+use GeminiAPI\ClientInterface;
 use GeminiAPI\Laravel\ChatSession;
 use GeminiAPI\Resources\Model;
 use Illuminate\Support\Facades\Facade;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static string generateTextUsingImageFile(string $imageType, string $imagePath, string $prompt = '')
  * @method static ChatSession startChat(array $history)
  * @method static Model[] listModels()
+ * @method static ClientInterface client()
  */
 class Gemini extends Facade
 {

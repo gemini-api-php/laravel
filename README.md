@@ -29,6 +29,7 @@ _This library is not developed or endorsed by Google._
     - [Text Embeddings](#text-embeddings)
     - [Tokens counting](#tokens-counting)
     - [Listing models](#listing-models)
+    - [Accessing the underlying Gemini API client](#accessing-the-underlying-gemini-api-client)
 - [Credits](#credits)
 
 ## Installation
@@ -196,6 +197,14 @@ print_r(Gemini::listModels());
 //      ...
 //    )
 //]
+```
+
+### Accessing the underlying Gemini API client
+
+```php
+use GeminiAPI\Laravel\Facades\Gemini;
+
+$client = Gemini::client();
 ```
 
 ## Credits
