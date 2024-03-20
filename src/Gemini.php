@@ -200,4 +200,9 @@ class Gemini implements GeminiContract
 
         return $response->models;
     }
+
+    public function client(): ClientInterface
+    {
+        return $this->client;
+    }
 }
