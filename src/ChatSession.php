@@ -27,6 +27,17 @@ class ChatSession
     }
 
     /**
+     * @throws ClientExceptionInterface
+     */
+    public function sendMessageStream(
+        string $text,
+    ): string {
+        return $this->chatSession
+            ->sendMessage(new TextPart($text))
+            ->text();
+    }
+
+    /**
      * @return array<int, array{
      *     message: string,
      *     role: string,
