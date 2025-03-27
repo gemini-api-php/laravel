@@ -121,6 +121,7 @@ class Gemini implements GeminiContract
         string $imageType,
         string $image,
         string $prompt = '',
+        ModelName $model = ModelName::GeminiProVision
     ): string {
         $mimeType = MimeType::tryFrom($imageType);
         if (is_null($mimeType)) {
@@ -136,7 +137,7 @@ class Gemini implements GeminiContract
         }
 
         $response = $this->client
-            ->generativeModel(ModelName::GeminiProVision)
+            ->generativeModel($model)
             ->generateContent(...$parts);
 
         return $response->text();
